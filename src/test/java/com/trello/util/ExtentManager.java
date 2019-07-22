@@ -1,4 +1,4 @@
-package com.myntra.util;
+package com.trello.util;
 
 import java.util.Date;
 

@@ -1,12 +1,10 @@
-package com.myntra.basetest;
+package com.trello.basetest;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -20,11 +18,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 
-import com.myntra.basetest.Xls_Reader;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -41,7 +37,7 @@ public class BaseTest {
     public void loadconfig() {
         if (prop == null) {
             try {
-                FileInputStream fis = new FileInputStream("config.properties");
+                FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"\\config.properties");
                 prop = new Properties();
                 prop.load(fis);
 
@@ -59,17 +55,12 @@ public class BaseTest {
                     System.setProperty("webdriver.ie.driver", System.getProperty("user.dir") + "\\resources\\IEDriverServer.exe");
                     driver = new InternetExplorerDriver();
 
-                    System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\resources\\chromedriver.exe");
-                    driver = new ChromeDriver();
 
-                    System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "\\resources\\geckodriver.exe");
-                    driver = new FirefoxDriver();
                 } else if ("Chrome".equals(BrowserType)) {
                     System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\resources\\chromedriver.exe");
                     driver = new ChromeDriver();
 
-                    System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "\\resources\\geckodriver.exe");
-                    driver = new FirefoxDriver();
+
                 } else if ("FF".equals(BrowserType)) {
                     System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "\\resources\\geckodriver.exe");
                     driver = new FirefoxDriver();
@@ -112,33 +103,11 @@ public class BaseTest {
 
     }
 
-    public void switchwindow(int index) {
-        driver.switchTo().frame(index);
-    }
-
     public void click(String locator) {
         WebElement elem = getelemnt(locator);
         elem.click();
     }
 
-    public void selectvalue(String locator, String inputtext) {
-        WebElement elem = getelemnt(locator);
-        Select sel = new Select(elem);
-        sel.selectByValue(inputtext);
-
-    }
-
-    public void selectvvisibletext(String locator, String inputtext) {
-        WebElement elem = getelemnt(locator);
-        Select sel = new Select(elem);
-        sel.selectByVisibleText(inputtext);
-
-    }
-
-    public void selectchkbox(String locator) {
-        WebElement elem = getelemnt(locator);
-        elem.click();
-    }
 
     public void takescreenshot(ExtentTest Test) {
         Date d = new Date();
@@ -155,18 +124,6 @@ public class BaseTest {
             e.printStackTrace();
         }
 
-    }
-
-    public String generateRandomemail() {
-        Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(1000);
-        String email="username"+ randomInt +"@gmail.com";
-        return email;
-    }
-    public String gettext(String locator) {
-        WebElement elm = getelemnt(locator);
-        String Actresult = elm.getText();
-        return Actresult;
     }
 
     public void dynamicwait(int waittime, String locator) {

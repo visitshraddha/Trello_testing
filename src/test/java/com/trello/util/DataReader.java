@@ -1,10 +1,10 @@
-package com.myntra.util;
+package com.trello.util;
 
 
 
 import java.util.Hashtable;
 
-import com.myntra.basetest.Xls_Reader;
+import com.trello.basetest.Xls_Reader;
 
 public class DataReader {
 
